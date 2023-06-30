@@ -1,0 +1,124 @@
+body,
+html {
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --main-color: #fda403;
+    --secondary-color: #e8751a;
+}
+
+.main-bg {
+    background: #fda403;
+}
+
+.sec-bg {
+    background: #e8751a;
+}
+
+.btn-main {
+    border: 1px solid var(--main-color) !important;
+    color: var(--secondary-color) !important;
+    border-radius: 20px !important;
+    padding: 0.3rem 1.6rem !important;
+}
+
+.btn-purple {
+    background: purple !important;
+    color: white !important;
+    border-radius: 20px;
+
+}
+
+.header {
+
+    height: 36rem;
+    position: relative;
+
+}
+
+@media(max-width: 768px) {
+    .header {
+        background: #e9eefc;
+    }
+}
+
+.logo {
+    width: 6rem;
+}
+
+/* menu javascript*/
+.menu {
+    display: none;
+}
+
+.menu-toggle {
+    display: block;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+}
+
+@media (max-width: 768px) {
+    .menu {
+        display: none;
+        padding: 15px;
+        list-style-type: none;
+    }
+
+    .menu.show {
+        display: block;
+
+    }
+}
+
+/* menu javascript end*/
+
+.nav-item a {
+    margin-right: 3rem;
+}
+
+h4 {
+    color: var(--main-color);
+
+}
+
+h3 {
+    color: var(--secondary-color);
+
+}
+
+
+h2 {
+    border-left: 10px solid var(--main-color);
+    padding-left: 5px;
+}
+
+.ms7 {
+    margin-left: 7rem;
+}
+
+.mt7 {
+    margin-top: 7rem;
+}
+
+/* About Us */
+.mt-10 {
+    margin-top: 8rem;
+}
+
+/* About Us End */
+
+/* Prices */
+.border-bottom {
+    border-bottom: 3px solid white;
+}
+
+/* Prices End*/

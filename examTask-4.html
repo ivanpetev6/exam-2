@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+    <title>Task 4</title>
+</head>
+
+<body>
+    <div class="container d-flex">
+        <div class="row">
+            <div class="col-4 form-control" id="table"></div>
+        </div>
+        <form onsubmit="searchUser(event)">
+            <div class="row pt-5 ms-5">
+                <div class="col-6">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search User by ID">
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-primary w-100">SEARCH</button>
+                </div>
+                <div class="col-6 pt-5 ps-5" id="resultContainer"></div>
+            </div>
+        </form>
+    </div>
+
+
+    <script>
+        function load() {
+            $.ajax({
+                url: 'https://old.blacatzacademy.com/api/users',
+                type: 'GET',
+                success: function (users) {
+
+                    let html = '<table class="table table=bordered mt-5">';
+                    html += '<tr><th>ID</th><th>Name</th><th>last name</th><th>age</th><th>salary</th></tr>';
+                    users.forEach(user => {
+                        html += '<tr>';
+                        html += `<td>${user.id}</td>`;
+                        html += `<td>${user.name}</td>`;
+                        html += `<td>${user.lastName}</td>`;
+                        html += `<td>${user.age}</td>`;
+                        html += `<td>${user.salary}</td>`;
+                        html += '<tr>';
+                    });
+                    html += '</table>';
+
+                    $('#table').html(html);
+                }
+            })
+        }
+
+
+        $(function () {
+            load()
+        })
+
+
+
+        function searchUser(event) {
+            event.preventDefault();
+
+            const searchInput = document.getElementById('searchInput');
+            const resultContainer = document.getElementById('resultContainer');
+
+            const userId = searchInput.value;
+            const apiUrl = `https://old.blacatzacademy.com/api/users?id=${userId}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        const user = data[0];
+
+                        const userContainer = document.createElement('div');
+                        userContainer.classList.add('user-container');
+
+                        const userIdElement = document.createElement('p');
+                        userIdElement.textContent = `ID: ${user.id}`;
+                        userContainer.appendChild(userIdElement);
+
+                        const nameElement = document.createElement('p');
+                        nameElement.textContent = `Име: ${user.name}`;
+                        userContainer.appendChild(nameElement);
+
+                        const lastNameElement = document.createElement('p');
+                        lastNameElement.textContent = `lastName: ${user.lastName}`;
+                        userContainer.appendChild(lastNameElement);
+
+                        const ageElement = document.createElement('p');
+                        ageElement.textContent = `Age: ${user.age}`;
+                        userContainer.appendChild(ageElement);
+
+                        const salaryElement = document.createElement('p');
+                        salaryElement.textContent = `Salary: ${user.salary}`;
+                        userContainer.appendChild(salaryElement);
+
+                        resultContainer.innerHTML = '';
+                        resultContainer.appendChild(userContainer);
+                    } else {
+                        resultContainer.textContent = 'Не е намерен потребител с това ID.';
+                    }
+                })
+                .catch(error => {
+                    console.error('Грешка при изпълнението на заявката:', error);
+                    resultContainer.textContent = 'Възникна грешка при изпълнението на заявката.';
+                });
+        }
+
+
+    </script>
+
+</body>
+
+</html>
